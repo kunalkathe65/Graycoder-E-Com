@@ -1,0 +1,131 @@
+body {
+  background: #fff;
+  font-family: 'Catamaran', sans-serif;
+  color: #2c3335;
+  margin-bottom: 100px;
+  position: relative;
+}
+html,
+body {
+  overflow-x: hidden;
+}
+.alert {
+  padding: 0.7rem;
+  margin: 1rem 0;
+  opacity: 0.9;
+  color: #fff;
+  border-radius: 0%;
+}
+
+.alert-success {
+  background-color: #7cec9f;
+  color: #000;
+}
+
+.alert-error {
+  background-color: #ea7773;
+  color: #000;
+}
+
+.green:hover {
+  background-color: #7cec9f;
+  color: #000;
+  border-radius: 5px;
+}
+
+.blue:hover {
+  background-color: #00cccd;
+  color: #000;
+  border-radius: 5px;
+}
+
+.red:hover {
+  background-color: #ea7773;
+  color: #000;
+  border-radius: 5px;
+}
+
+.nav-link {
+  color: #fff;
+  cursor: pointer;
+}
+
+#navbar-main .nav-link:hover {
+  background-color: #01cbc6;
+  color: #2c3335;
+  border-radius: 5px;
+}
+
+.active-route {
+  color: #99aaab;
+}
+.btn,
+.btn:hover {
+  color: #fff;
+}
+.blue-btn {
+  background-color: #0a3d62;
+}
+.other-btn {
+  background-color: #eaf0f1;
+  position: relative;
+}
+.other-btn .fa {
+  position: absolute;
+  line-height: 24px;
+  top: 50%;
+  margin-top: -12px;
+  left: 10px;
+}
+
+.other-btn:hover {
+  box-shadow: 4px 4px 2px #dae0e2;
+}
+
+.blue-btn:hover {
+  background-color: #0a3d62;
+}
+.form-control:focus {
+  box-shadow: none;
+  border: 1px solid #2475b0;
+}
+.footer {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  background-color: #0a3d62;
+  text-align: center;
+}
+.card-top {
+  background-color: #0a3d62;
+}
+.item:hover {
+  background-color: #eaf0f1;
+}
+.bg {
+  width: 100px;
+  padding: 8px;
+  background-color: #7cec9f;
+  color: #000;
+}
+@media only screen and (min-width: 600px) {
+  .pt {
+    padding-top: 200px;
+  }
+  .ml {
+    margin-left: 40px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #signin-form {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  #signup-form {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
