@@ -66,6 +66,13 @@ body {
 .blue-btn {
   background-color: #0a3d62;
 }
+.gray-btn {
+  background-color: #dae0e2;
+  color: #000;
+}
+.gray-btn:hover {
+  color: #000;
+}
 .other-btn {
   background-color: #eaf0f1;
   position: relative;
@@ -106,7 +113,7 @@ body {
 .bg {
   width: 100px;
   padding: 8px;
-  background-color: #7cec9f;
+  background-color: #67e6dc;
   color: #000;
 }
 @media only screen and (min-width: 600px) {
@@ -119,12 +126,9 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-  #signin-form {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-
-  #signup-form {
+  #signin-form,
+  #signup-form,
+  #category-form {
     margin-left: 5px;
     margin-right: 5px;
   }

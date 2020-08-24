@@ -11,10 +11,11 @@ exports.getCategoryById = (req, res, next, id) => {
 };
 
 exports.createCategory = (req, res) => {
-  const category = new Category(req.body);
+  const { categoryName } = req.body;
+  const category = new Category({ name: categoryName });
   category.save((err, category) => {
     if (err) {
-      return res.status(400).json({ error: 'Category not saved' });
+      return res.status(400).json({ error: `${categoryName} already exists!` });
     }
     return res.json({ category });
   });
