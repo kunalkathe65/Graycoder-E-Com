@@ -4,6 +4,7 @@ import Base from '../core/Base';
 import Alert from '../core/Alert';
 import { isAuthenticated } from '../auth/helper/index';
 import { createCategory } from './helper/adminApiCalls';
+import { signout } from '../auth/helper/index';
 
 const AddCategory = (props) => {
   // State
@@ -27,10 +28,19 @@ const AddCategory = (props) => {
       setLoading(false);
 
       if (data.error) {
-        setAlert(data.error);
-        setCategoryName('');
-        setSuccess(false);
-        clearAlert();
+        if (
+          data.error === 'Token is invalid!' ||
+          data.error === 'No user Found!'
+        ) {
+          signout(() => {
+            props.history.push('/');
+          });
+        } else {
+          setAlert(data.error);
+          setCategoryName('');
+          setSuccess(false);
+          clearAlert();
+        }
       } else {
         setAlert(`${data.category.name} category created successfully!`);
         setCategoryName('');

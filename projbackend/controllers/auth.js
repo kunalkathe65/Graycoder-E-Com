@@ -96,7 +96,10 @@ exports.isSignedIn = expressJwt({
 });
 
 //Custom MW
-exports.isAuthenticated = (req, res, next) => {
+exports.isAuthenticated = (err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({ error: 'Token is invalid!' });
+  }
   let checker = req.profile && req.profile._id == req.auth._id;
   if (!checker) {
     res.status(403).json({ error: 'ACCESS DENIED!' });
