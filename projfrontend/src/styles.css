@@ -128,7 +128,8 @@ body {
 @media only screen and (max-width: 600px) {
   #signin-form,
   #signup-form,
-  #category-form {
+  #add-product-form,
+  #add-category-form {
     margin-left: 5px;
     margin-right: 5px;
   }

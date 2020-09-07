@@ -55,6 +55,15 @@ const AdminDashboard = () => {
               className='nav-link'
               style={{ color: '#000' }}
             >
+              <i className='fa fa-list-ul fa-lg'></i> Manage Categories
+            </Link>
+          </li>
+          <li className='list-group-item item'>
+            <Link
+              to='/admin/create/product'
+              className='nav-link'
+              style={{ color: '#000' }}
+            >
               <i className='fa fa-cart-plus fa-lg'></i> Create Products
             </Link>
           </li>{' '}

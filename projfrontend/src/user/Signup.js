@@ -64,6 +64,7 @@ const Signup = (props) => {
           success: true,
         });
         clearAlert();
+        clearSuccess();
       }
     }
   };
@@ -84,6 +85,19 @@ const Signup = (props) => {
   const clearAlert = () => {
     setTimeout(() => {
       setAlert('');
+    }, 3000);
+  };
+
+  const clearSuccess = () => {
+    setTimeout(() => {
+      setValues({
+        ...values,
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        success: false,
+      });
     }, 3000);
   };
 

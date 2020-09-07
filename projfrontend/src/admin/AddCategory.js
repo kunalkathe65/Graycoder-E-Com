@@ -65,9 +65,9 @@ const AddCategory = (props) => {
 
   return (
     <Base title='Add New Category' description='Category for everyone'>
-      <div className='row' id='category-form'>
+      <div className='row' id='add-category-form'>
         <div className='col-xs-12 col-sm-12 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4'>
-          <h2 className='text-center pt-5'>
+          <h2 className='text-center pt-3'>
             <i className='fa fa-plus-circle'></i> Add New Category{' '}
           </h2>
           {successMessage()}
