@@ -66,6 +66,14 @@ body {
 .blue-btn {
   background-color: #0a3d62;
 }
+.green-btn {
+  background-color: #7cec9f;
+  color: #000;
+}
+.red-btn {
+  background-color: #ff4848;
+  color: #000;
+}
 .gray-btn {
   background-color: #dae0e2;
   color: #000;
@@ -128,6 +136,7 @@ body {
 @media only screen and (max-width: 600px) {
   #signin-form,
   #signup-form,
+  #products-list,
   #add-product-form,
   #add-category-form {
     margin-left: 5px;

@@ -84,7 +84,6 @@ const AddProduct = (props) => {
             stock: '',
             photo: '',
             category: '',
-            formData: '',
             createdProduct: '',
           });
           setSuccess(false);
@@ -100,7 +99,6 @@ const AddProduct = (props) => {
           stock: '',
           photo: '',
           category: '',
-          formData: '',
           createdProduct: data.product.name,
         });
         setSuccess(true);

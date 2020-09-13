@@ -11,6 +11,7 @@ import AdminDashboard from './user/AdminDashboard';
 import UserDashboard from './user/UserDashboard';
 import AddCategory from './admin/AddCategory';
 import AddProduct from './admin/AddProduct';
+import ManageProducts from './admin/ManageProducts';
 
 const App = () => {
   return (
@@ -28,8 +29,8 @@ const App = () => {
           component={AddCategory}
         />
         <AdminRoute path='/admin/create/product' exact component={AddProduct} />
-        {/* <AdminRoute path='/admin/products' exact component={ManageProducts} />
-        <AdminRoute path='/admin/orders' exact component={ManageOrders} /> */}
+        <AdminRoute path='/admin/products' exact component={ManageProducts} />
+        {/* <AdminRoute path='/admin/orders' exact component={ManageOrders} /> */}
         <Route path='/*' render={() => <h1>404</h1>} />
       </Switch>
     </Router>
