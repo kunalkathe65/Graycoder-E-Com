@@ -16,7 +16,6 @@ const AddProduct = (props) => {
   //State
   const [alert, setAlert] = useState('');
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [values, setValues] = useState({
     name: '',
     description: '',
@@ -24,9 +23,9 @@ const AddProduct = (props) => {
     stock: '',
     photo: '',
     category: '',
-    formData: '',
     createdProduct: '',
     categories: [],
+    formData: '',
   });
 
   const {
@@ -37,6 +36,7 @@ const AddProduct = (props) => {
     categories,
     category,
     photo,
+    createdProduct,
     formData,
   } = values;
 
@@ -65,17 +65,16 @@ const AddProduct = (props) => {
     } else {
       const data = await createProduct(user._id, token, formData);
       setLoading(false);
-
-      if (data.error) {
+      if (data?.error) {
         if (
-          data.error === 'Token is invalid!' ||
-          data.error === 'No user Found!'
+          data?.error === 'Token is invalid!' ||
+          data?.error === 'No user Found!'
         ) {
           signout(() => {
             props.history.push('/');
           });
         } else {
-          setAlert(data.error);
+          setAlert(data?.error);
           setValues({
             ...values,
             name: '',
@@ -86,7 +85,6 @@ const AddProduct = (props) => {
             category: '',
             createdProduct: '',
           });
-          setSuccess(false);
           clearAlert();
         }
       } else {
@@ -101,11 +99,7 @@ const AddProduct = (props) => {
           category: '',
           createdProduct: data.product.name,
         });
-        setSuccess(true);
         clearAlert();
-        setTimeout(() => {
-          setSuccess(false);
-        }, 3000);
       }
     }
   };
@@ -118,15 +112,15 @@ const AddProduct = (props) => {
   };
 
   const successMessage = () =>
-    success && alert && <Alert msg={alert} type='success' />;
+    alert && createdProduct && <Alert msg={alert} type='success' />;
 
   const errorMessage = () =>
-    alert && !success && <Alert msg={alert} type='error' />;
+    alert && !createdProduct && <Alert msg={alert} type='error' />;
 
   const preFetchCategories = async () => {
     const data = await getAllCategories();
-    if (data.error) {
-      setAlert(data.error);
+    if (data?.error) {
+      setAlert(data?.error);
       clearAlert();
     } else {
       setValues({

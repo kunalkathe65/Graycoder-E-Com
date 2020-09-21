@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^5.0.0-alpha1",
+    "formik": "^2.1.5",
     "popper.js": "^1.16.1",
     "query-string": "^6.13.1",
     "react": "^16.13.1",

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import Base from '../core/Base';
 import Alert from '../core/Alert';
@@ -19,16 +20,16 @@ const ManageProducts = (props) => {
   //Handlers
   const deleteAProduct = async (productId) => {
     const data = await deleteProduct(productId, user._id, token);
-    if (data.error) {
+    if (data?.error) {
       if (
-        data.error === 'Token is invalid!' ||
-        data.error === 'No user Found!'
+        data?.error === 'Token is invalid!' ||
+        data?.error === 'No user Found!'
       ) {
         signout(() => {
           props.history.push('/');
         });
       } else {
-        setAlert(data.error);
+        setAlert(data?.error);
         clearAlert();
       }
     } else {
@@ -39,8 +40,8 @@ const ManageProducts = (props) => {
   //Other Methods
   const preFetchProducts = async () => {
     const data = await getAllProducts();
-    if (data.error) {
-      setAlert(data.error);
+    if (data?.error) {
+      setAlert(data?.error);
       clearAlert();
     } else {
       setProducts(data);
@@ -71,7 +72,12 @@ const ManageProducts = (props) => {
                 <div className='card-body'>
                   <h5 className='card-title'>{product.name}</h5>
                   <p className='card-text'>{product.description}</p>
-                  <button className='btn btn-sm green-btn'>Update</button>
+                  <Link
+                    className='btn btn-sm green-btn'
+                    to={`/admin/product/update/${product._id}`}
+                  >
+                    Update
+                  </Link>
                   {'  '}
                   <button
                     onClick={() => deleteAProduct(product._id)}
@@ -85,6 +91,13 @@ const ManageProducts = (props) => {
           ) : (
             <p style={{ textAlign: 'center' }}>No products available!</p>
           )}
+          <button
+            type='button'
+            className='btn btn-block btn-lg gray-btn'
+            onClick={() => props.history.push('/admin/dashboard')}
+          >
+            Back to Admin Dashboard
+          </button>
         </div>
       </div>
     </Base>

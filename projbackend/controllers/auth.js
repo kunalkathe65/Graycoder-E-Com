@@ -98,11 +98,11 @@ exports.isSignedIn = expressJwt({
 //Custom MW
 exports.isAuthenticated = (err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
-    res.status(401).json({ error: 'Token is invalid!' });
+    return res.status(401).json({ error: 'Token is invalid!' });
   }
   let checker = req.profile && req.profile._id == req.auth._id;
   if (!checker) {
-    res.status(403).json({ error: 'ACCESS DENIED!' });
+    return res.status(403).json({ error: 'ACCESS DENIED!' });
   }
 
   next();
@@ -110,7 +110,9 @@ exports.isAuthenticated = (err, req, res, next) => {
 
 exports.isAdmin = (req, res, next) => {
   if (req.profile.role === 0) {
-    res.status(403).json({ error: "You're not an ADMIN,ACCESS DENIED!" });
+    return res
+      .status(403)
+      .json({ error: "You're not an ADMIN,ACCESS DENIED!" });
   }
   next();
 };

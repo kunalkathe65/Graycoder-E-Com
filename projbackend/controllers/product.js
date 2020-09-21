@@ -3,16 +3,16 @@ const formidable = require('formidable');
 const _ = require('lodash');
 const fs = require('fs');
 
-exports.getProductById = (req, res, next, id) => {
-  Product.findById(id)
-    .populate('categories')
+exports.getProductById = async (req, res, next, id) => {
+  await Product.findById(id)
+    .populate('category')
     .exec((err, product) => {
       if (err) {
         return res.status(400).json({ error: 'Product not found!' });
       }
       req.product = product;
+      next();
     });
-  next();
 };
 
 exports.createProduct = (req, res) => {
@@ -53,7 +53,7 @@ exports.createProduct = (req, res) => {
 
 exports.getProduct = (req, res) => {
   req.product.photo = undefined;
-  return res.json(req.product);
+  return res.json({ product: req.product });
 };
 
 //Middleware
@@ -71,7 +71,7 @@ exports.deleteProduct = (req, res) => {
     if (err) {
       return res.status(403).json({ error: 'Deletion failed!' });
     }
-    return res.json(deletedProduct);
+    return res.json({ deletedProduct });
   });
 };
 
