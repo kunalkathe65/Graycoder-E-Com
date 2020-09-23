@@ -46,7 +46,7 @@ const AdminDashboard = () => {
               className='nav-link'
               style={{ color: '#000' }}
             >
-              <i className='fa fa-plus-circle fa-lg'></i> Create Categories
+              <i className='fa fa-plus-circle fa-lg'></i> Create Category
             </Link>
           </li>
           <li className='list-group-item item'>
@@ -64,7 +64,7 @@ const AdminDashboard = () => {
               className='nav-link'
               style={{ color: '#000' }}
             >
-              <i className='fa fa-cart-plus fa-lg'></i> Create Products
+              <i className='fa fa-plus-circle fa-lg'></i> Create Product
             </Link>
           </li>{' '}
           <li className='list-group-item item'>

@@ -5,6 +5,7 @@ import Base from '../core/Base';
 import Alert from '../core/Alert';
 import { getAllProducts, deleteProduct } from './helper/adminApiCalls';
 import { isAuthenticated, signout } from '../auth/helper/index';
+import API from '../backend';
 
 const ManageProducts = (props) => {
   useEffect(() => {
@@ -66,7 +67,7 @@ const ManageProducts = (props) => {
               <div className='card mb-2' key={index}>
                 <img
                   className='card-img-top'
-                  src={product.photo}
+                  src={`${API}/product/photo/${product._id}`}
                   alt={product.name}
                 />
                 <div className='card-body'>

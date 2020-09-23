@@ -23,7 +23,6 @@ const AddProduct = (props) => {
     stock: '',
     photo: '',
     category: '',
-    createdProduct: '',
     categories: [],
     formData: '',
   });
@@ -36,7 +35,6 @@ const AddProduct = (props) => {
     categories,
     category,
     photo,
-    createdProduct,
     formData,
   } = values;
 
@@ -81,23 +79,19 @@ const AddProduct = (props) => {
             description: '',
             price: '',
             stock: '',
-            photo: '',
             category: '',
-            createdProduct: '',
           });
           clearAlert();
         }
       } else {
-        setAlert(`${data.product.name} product created successfully!`);
+        setAlert('Product created successfully!');
         setValues({
           ...values,
           name: '',
           description: '',
           price: '',
           stock: '',
-          photo: '',
           category: '',
-          createdProduct: data.product.name,
         });
         clearAlert();
       }
@@ -111,11 +105,12 @@ const AddProduct = (props) => {
     }, 3000);
   };
 
-  const successMessage = () =>
-    alert && createdProduct && <Alert msg={alert} type='success' />;
-
-  const errorMessage = () =>
-    alert && !createdProduct && <Alert msg={alert} type='error' />;
+  const message = () =>
+    alert && alert === 'Product created successfully!' ? (
+      <Alert msg={alert} type='success' />
+    ) : alert !== '' ? (
+      <Alert msg={alert} type='error' />
+    ) : null;
 
   const preFetchCategories = async () => {
     const data = await getAllCategories();
@@ -138,8 +133,7 @@ const AddProduct = (props) => {
           <h2 className='text-center pt-3'>
             <i className='fa fa-plus-circle'></i> Add New Product{' '}
           </h2>
-          {successMessage()}
-          {errorMessage()}
+          {message()}
           <form>
             <div className='form-group'>
               <div className='mb-1'>

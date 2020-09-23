@@ -25,10 +25,11 @@ exports.updateUser = (req, res) => {
     (err, user) => {
       if (err) {
         return res.status(400).json({ error: 'Update Unsuccessfull!' });
+      } else {
+        user.salt = undefined;
+        user.encry_password = undefined;
+        return res.json({ user });
       }
-      user.salt = undefined;
-      user.encry_password = undefined;
-      res.json({ user });
     }
   );
 };
@@ -39,8 +40,9 @@ exports.getUserPurchaseList = (req, res) => {
     .exec((err, order) => {
       if (err) {
         return res.status(400).json({ err: 'No orders!' });
+      } else {
+        return res.json({ order });
       }
-      return res.json(order);
     });
 };
 

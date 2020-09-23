@@ -9,9 +9,8 @@ exports.getOrderById = (req, res, next, id) => {
         return res.status(400).json({ error: 'No Order Found!' });
       }
       req.order = order;
+      next();
     });
-
-  next();
 };
 
 exports.createOrder = (req, res) => {
@@ -20,8 +19,9 @@ exports.createOrder = (req, res) => {
   order.save().exec((err, order) => {
     if (err) {
       return res.status(400).json({ error: 'Order Creation Failed!' });
+    } else {
+      return res.json({ order });
     }
-    return res.json(order);
   });
 };
 
@@ -31,8 +31,9 @@ exports.getAllOrders = (req, res) => {
     .exec((err, order) => {
       if (err) {
         return res.status(400).json({ error: 'No orders found!' });
+      } else {
+        return res.json({ order });
       }
-      return res.json(order);
     });
 };
 
@@ -47,8 +48,9 @@ exports.updateStatus = (req, res) => {
     (err, order) => {
       if (err) {
         return res.status(400).json({ error: 'Status updation failed!' });
+      } else {
+        return res.json({ order });
       }
-      return res.json(order);
     }
   );
 };

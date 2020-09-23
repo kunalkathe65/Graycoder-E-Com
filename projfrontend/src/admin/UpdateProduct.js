@@ -163,7 +163,7 @@ const UpdateProduct = ({ match, history }) => {
       <div className='row' id='add-product-form'>
         <div className='col-xs-12 col-sm-12 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4'>
           <h2 className='text-center pt-3'>
-            <i className='fa fa-plus-circle'></i> Update Product{' '}
+            <i className='fa fa-edit'></i> Update Product{' '}
           </h2>
           {successMessage()}
           {errorMessage()}
@@ -260,9 +260,9 @@ const UpdateProduct = ({ match, history }) => {
               <button
                 type='button'
                 className='btn btn-block btn-lg gray-btn'
-                onClick={() => history.push('/admin/dashboard')}
+                onClick={() => history.push('/admin/products')}
               >
-                Back to Admin Dashboard
+                Back to Products List
               </button>
             </div>
           </form>

@@ -45,8 +45,9 @@ exports.createProduct = (req, res) => {
     product.save((err, product) => {
       if (err) {
         return res.status(400).json({ error: 'Product not saved!' });
+      } else {
+        return res.json({ product });
       }
-      return res.json({ product });
     });
   });
 };
@@ -70,8 +71,9 @@ exports.deleteProduct = (req, res) => {
   product.remove((err, deletedProduct) => {
     if (err) {
       return res.status(403).json({ error: 'Deletion failed!' });
+    } else {
+      return res.json({ deletedProduct });
     }
-    return res.json({ deletedProduct });
   });
 };
 
@@ -101,8 +103,9 @@ exports.updateProduct = (req, res) => {
     product.save((err, product) => {
       if (err) {
         return res.status(400).json({ error: 'Product not saved!' });
+      } else {
+        return res.json({ product });
       }
-      return res.json({ product });
     });
   });
 };
@@ -119,8 +122,9 @@ exports.getAllProducts = (req, res) => {
     .exec((err, products) => {
       if (err) {
         return res.status(400).json({ error: 'No products found!' });
+      } else {
+        return res.json(products);
       }
-      return res.json(products);
     });
 };
 
@@ -147,7 +151,8 @@ exports.getUniqueCategories = (req, res) => {
   Product.distinct('category', {}, (err, category) => {
     if (err) {
       return res.status(400).json({ error: 'No category found!' });
+    } else {
+      return res.json(category);
     }
-    return res.json(category);
   });
 };
