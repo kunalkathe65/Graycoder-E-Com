@@ -138,9 +138,18 @@ body {
   #signup-form,
   #products-list,
   #add-product-form,
-  #cards,
   #add-category-form {
     margin-left: 5px;
     margin-right: 5px;
   }
+}
+.plus-btn {
+  width: 35px;
+  background-color: #2ecc72;
+  border: none;
+}
+.minus-btn {
+  width: 35px;
+  background-color: #ea7773;
+  border: none;
 }

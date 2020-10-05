@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './core/Home';
+import Cart from './core/Cart';
 import Signup from './user/Signup';
 import Signin from './user/Signin';
 import PrivateRoute from './auth/helper/PrivateRoute';
@@ -23,6 +24,7 @@ const App = () => {
         <Route path='/sign-in' exact component={Signin} />
         <PrivateRoute path='/user/dashboard' exact component={UserDashboard} />
         <PrivateRoute path='/user/profile' exact component={Profile} />
+        <PrivateRoute path='/user/cart' exact component={Cart} />
         <AdminRoute path='/admin/dashboard' exact component={AdminDashboard} />
         <AdminRoute
           path='/admin/create/category'

@@ -80,16 +80,18 @@ const Navbar = (props) => {
                   </NavLink>
                 </li>
               )}
-              <li className='nav-item'>
-                <NavLink
-                  className='nav-link'
-                  aria-current='page'
-                  to='/fe'
-                  activeClassName='active-route'
-                >
-                  Cart
-                </NavLink>
-              </li>
+              {isAuthenticated() && (
+                <li className='nav-item'>
+                  <NavLink
+                    className='nav-link'
+                    aria-current='page'
+                    to='/user/cart'
+                    activeClassName='active-route'
+                  >
+                    Cart
+                  </NavLink>
+                </li>
+              )}
             </ul>
 
             {/* Signin, Signup amd Signout links */}
