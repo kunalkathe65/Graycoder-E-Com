@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,11 +8,26 @@ import API from '../backend';
 import {
   addProductToLocalStorage,
   removeFromLocalStorage,
-} from './helper/cardHelper';
+  updateQtyOfProduct,
+  qtyOfProduct,
+} from './helper/cartHelper';
+import { isAuthenticated } from '../auth/helper';
 
-const Card = ({ product, showAddBtn, showRemoveBtn, reload, setReload }) => {
+const Card = ({
+  product,
+  showAddBtn,
+  showRemoveBtn,
+  reload,
+  setReload,
+  history,
+}) => {
   //state
-  let [qty, setQty] = useState(1);
+  let [qty, setQty] = useState(0);
+
+  useEffect(() => {
+    showRemoveBtn && setQty(qtyOfProduct(product._id));
+    //eslint-disable-next-line
+  }, []);
 
   const toastConfigObject = {
     position: 'bottom-center',
@@ -28,9 +44,21 @@ const Card = ({ product, showAddBtn, showRemoveBtn, reload, setReload }) => {
 
   //Handlers
   const addToLocalStorage = (product) => {
-    addProductToLocalStorage(product, () => {
+    addProductToLocalStorage(product, product._id, () => {
       toast.success('Added to cart!', toastConfigObject);
     });
+  };
+
+  const handleAddQtyBtn = () => {
+    setQty(qty++);
+    updateQtyOfProduct(qty - 1, product._id);
+  };
+
+  const handleMinusQtyBtn = () => {
+    setQty(() => {
+      return qty > 1 ? qty-- : 1;
+    });
+    updateQtyOfProduct(qty > 1 ? qty + 1 : qty, product._id);
   };
 
   return (
@@ -69,17 +97,10 @@ const Card = ({ product, showAddBtn, showRemoveBtn, reload, setReload }) => {
             {showRemoveBtn && (
               <span style={{ float: 'right' }}>
                 Qty : {qty}
-                <button className='plus-btn m-2' onClick={() => setQty(qty++)}>
+                <button className='plus-btn m-2' onClick={handleAddQtyBtn}>
                   +
                 </button>
-                <button
-                  className='minus-btn mr-1'
-                  onClick={() =>
-                    setQty(() => {
-                      return qty > 1 ? qty-- : 1;
-                    })
-                  }
-                >
+                <button className='minus-btn mr-1' onClick={handleMinusQtyBtn}>
                   -
                 </button>
               </span>
@@ -96,7 +117,11 @@ const Card = ({ product, showAddBtn, showRemoveBtn, reload, setReload }) => {
       </ul>
       {showAddBtn && (
         <button
-          onClick={() => addToLocalStorage(product)}
+          onClick={() =>
+            isAuthenticated()
+              ? addToLocalStorage(product)
+              : history.push('/sign-in')
+          }
           className='btn btn-sm green-btn m-3'
         >
           <i className='fa fa-cart-plus fa-lg'></i> Add to cart
@@ -119,9 +144,11 @@ const Card = ({ product, showAddBtn, showRemoveBtn, reload, setReload }) => {
 };
 
 Card.propTypes = {
-  product: PropTypes.object,
+  product: PropTypes.object.isRequired,
   showRemoveBtn: PropTypes.bool,
   showAddBtn: PropTypes.bool,
+  reload: PropTypes.bool,
+  setReload: PropTypes.func,
 };
 
-export default Card;
+export default withRouter(Card);
