@@ -44,11 +44,11 @@ const Checkout = () => {
                 <tr key={index}>
                   <td className='text-muted'>{product.name}</td>
                   <td className='text-muted'>
-                    Rs.{product.price} x {product.qty} nos.
+                    Rs.{product.price}.00 x {product.qty} nos.
                   </td>
                   <td className='text-muted'>=</td>
                   <td className='text-muted'>
-                    Rs.{product.price * product.qty}
+                    Rs.{product.price * product.qty}.00
                   </td>
                 </tr>
               ))}

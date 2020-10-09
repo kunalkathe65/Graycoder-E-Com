@@ -80,7 +80,7 @@ const Navbar = (props) => {
                   </NavLink>
                 </li>
               )}
-              {isAuthenticated() && (
+              {isAuthenticated() && isAuthenticated().user.role !== 1 && (
                 <li className='nav-item'>
                   <NavLink
                     className='nav-link'

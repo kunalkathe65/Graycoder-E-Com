@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import API from '../backend';
 import {
   addProductToLocalStorage,
-  removeFromLocalStorage,
+  removeProductFromLocalStorage,
   updateQtyOfProduct,
   qtyOfProduct,
 } from './helper/cartHelper';
@@ -47,6 +47,11 @@ const Card = ({
     addProductToLocalStorage(product, product._id, () => {
       toast.success('Added to cart!', toastConfigObject);
     });
+  };
+
+  const removeFromLocalStorage = (product, _id) => {
+    const isRemoved = removeProductFromLocalStorage(product._id);
+    !isRemoved ? history.push('/') : setReload(!reload);
   };
 
   const handleAddQtyBtn = () => {
@@ -119,7 +124,12 @@ const Card = ({
         <button
           onClick={() =>
             isAuthenticated()
-              ? addToLocalStorage(product)
+              ? isAuthenticated().user.role === 1
+                ? toast.error(
+                    'YOU ARE AN ADMIN! Kindly Logout first',
+                    toastConfigObject
+                  )
+                : addToLocalStorage(product)
               : history.push('/sign-in')
           }
           className='btn btn-sm green-btn m-3'
@@ -133,7 +143,6 @@ const Card = ({
           className='btn btn-sm red-btn m-3'
           onClick={() => {
             removeFromLocalStorage(product._id);
-            setReload(!reload);
           }}
         >
           <i className='fa fa-trash fa-lg'></i> Remove from cart

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import Base from '../core/Base';
 import Alert from '../core/Alert';
@@ -177,6 +178,10 @@ const Signup = (props) => {
               &nbsp;&nbsp; Sign Up
             </button>
           </form>
+          <p className='text-muted mt-3'>
+            Already have an account ? Consider{' '}
+            <Link to='/sign-in'>Sign In</Link>
+          </p>
         </div>
       </div>
     </Base>

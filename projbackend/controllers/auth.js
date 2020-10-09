@@ -17,7 +17,7 @@ exports.signup = async (req, res) => {
     const isFound = await User.findOne({ email });
     if (isFound) {
       return res.status(400).json({
-        error: "You're already registered ! Kindly login",
+        error: "You're already registered ! Kindly sign in",
       });
     } else {
       const user = new User({
@@ -28,7 +28,7 @@ exports.signup = async (req, res) => {
       });
       await user.save();
       return res.status(200).json({
-        success: 'Registered successfully! Please login',
+        success: 'Registered successfully! Please sign in',
         user: {
           firstName: user.name,
           lastName: user.lastname,

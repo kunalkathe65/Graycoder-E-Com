@@ -12,8 +12,8 @@ export const addProductToLocalStorage = (product, productId, next) => {
   if (typeof window !== undefined) {
     if (localStorage.getItem('cart')) {
       cart = JSON.parse(localStorage.getItem('cart'));
-      const found = cart.find((product) => product._id === productId);
-      if (found) {
+      const isFound = cart.find((product) => product._id === productId);
+      if (isFound) {
         cart.forEach((product) => {
           if (product._id === productId) {
             product.qty += 1;
@@ -39,15 +39,17 @@ export const addProductsInCart = () => {
   }
 };
 
-export const removeFromLocalStorage = (productId) => {
+export const removeProductFromLocalStorage = (productId) => {
   let cart = [];
   if (typeof window !== undefined) {
     if (localStorage.getItem('cart')) {
       cart = JSON.parse(localStorage.getItem('cart')).filter(
         (product) => product._id !== productId
       );
+      localStorage.setItem('cart', JSON.stringify(cart));
+    } else {
+      return false;
     }
-    localStorage.setItem('cart', JSON.stringify(cart));
   }
 };
 
@@ -59,6 +61,8 @@ export const updateQtyOfProduct = (qty, productId) => {
       cart.find((product) => product._id === productId).qty = qty;
     }
     localStorage.setItem('cart', JSON.stringify(cart));
+  } else {
+    return false;
   }
 };
 

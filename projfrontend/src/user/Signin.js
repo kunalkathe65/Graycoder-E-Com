@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import Base from '../core/Base';
 import Alert from '../core/Alert';
@@ -130,6 +130,9 @@ const Signin = (props) => {
               &nbsp;&nbsp; Sign In
             </button>
           </form>
+          <p className='text-muted mt-3'>
+            Don't have an account ? Consider <Link to='/sign-up'>Sign Up</Link>
+          </p>
           {performRedirect()}
         </div>
       </div>
