@@ -34,7 +34,7 @@ const Checkout = () => {
             <thead>
               <tr>
                 <th scope='col'>Item Name</th>
-                <th scope='col'>Item Qty</th>
+                <th scope='col'>Item's Price x Item's Qty</th>
                 <th scope='col'></th>
                 <th scope='col'>Total Price</th>
               </tr>

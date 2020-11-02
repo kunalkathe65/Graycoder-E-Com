@@ -24,8 +24,11 @@ export const addProductToLocalStorage = (product, productId, next) => {
         cart.push(productInCart);
         localStorage.setItem('cart', JSON.stringify(cart));
       }
-      next();
+    } else {
+      cart.push(productInCart);
+      localStorage.setItem('cart', JSON.stringify(cart));
     }
+    next();
   }
 };
 
