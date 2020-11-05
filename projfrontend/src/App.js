@@ -14,6 +14,7 @@ import AddCategory from './admin/AddCategory';
 import AddProduct from './admin/AddProduct';
 import UpdateProduct from './admin/UpdateProduct';
 import ManageProducts from './admin/ManageProducts';
+import ForgotPassword from './user/ForgotPassword';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path='/' exact component={Home} />
         <Route path='/sign-up' exact component={Signup} />
         <Route path='/sign-in' exact component={Signin} />
+        <Route path='/forgot-password' exact component={ForgotPassword} />
         <PrivateRoute path='/user/dashboard' exact component={UserDashboard} />
         <PrivateRoute path='/user/profile' exact component={Profile} />
         <PrivateRoute path='/user/cart' exact component={Cart} />

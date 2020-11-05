@@ -50,6 +50,7 @@ export const removeProductFromLocalStorage = (productId) => {
         (product) => product._id !== productId
       );
       localStorage.setItem('cart', JSON.stringify(cart));
+      return true;
     } else {
       return false;
     }

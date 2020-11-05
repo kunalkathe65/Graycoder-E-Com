@@ -132,7 +132,10 @@ const Signin = (props) => {
           </form>
           <p className='text-muted mt-3'>
             Don't have an account ? Consider <Link to='/sign-up'>Sign Up</Link>
+            <br />
+            Forgot Password ? <Link to='/forgot-password'>Click here</Link>
           </p>
+
           {performRedirect()}
         </div>
       </div>

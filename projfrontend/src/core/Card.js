@@ -49,8 +49,8 @@ const Card = ({
     });
   };
 
-  const removeFromLocalStorage = (product, _id) => {
-    const isRemoved = removeProductFromLocalStorage(product._id);
+  const removeFromLocalStorage = (productId) => {
+    const isRemoved = removeProductFromLocalStorage(productId);
     !isRemoved ? history.push('/') : setReload(!reload);
   };
 
