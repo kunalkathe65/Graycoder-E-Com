@@ -1,4 +1,5 @@
 const Category = require('../models/Category');
+const Product = require('../models/Product');
 
 exports.getCategoryById = async (req, res, next, id) => {
   await Category.findById(id).exec((err, category) => {
@@ -57,6 +58,9 @@ exports.removeCategory = (req, res) => {
     if (err) {
       return res.status(400).json({ error: 'Deletion failed!' });
     } else {
+      Product.findOneAndDelete({ category: req.category._id }, (err, product) =>
+        console.log('DELETED ALL REFERENCES OF CATEGORY FROM PRODUCTS...')
+      );
       return res.json({ msg: 'Deleted Successfully!' });
     }
   });

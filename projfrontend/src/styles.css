@@ -74,6 +74,14 @@ body {
   background-color: #ff4848;
   color: #000;
 }
+.trash-btn {
+  background-color: #ea7773;
+  color: #000;
+}
+.edit-btn {
+  background-color: #eaf0f1;
+  color: #000;
+}
 .gray-btn {
   background-color: #dae0e2;
   color: #000;

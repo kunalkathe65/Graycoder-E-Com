@@ -50,9 +50,7 @@ const ForgotPassword = (props) => {
           </h2>
           <form>
             <div className='mb-3'>
-              <label className='form-label'>
-                Enter email address ( OTP will be sent here )
-              </label>
+              <label className='form-label'>Enter email address</label>
               <input
                 type='email'
                 name='email'
@@ -75,7 +73,7 @@ const ForgotPassword = (props) => {
                   aria-hidden='true'
                 ></span>
               )}
-              &nbsp;&nbsp; Send OTP
+              &nbsp;&nbsp; Send Email
             </button>
           </form>
         </div>

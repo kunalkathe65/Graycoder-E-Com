@@ -18,6 +18,7 @@ const Home = () => {
   //other methods
   const preFetchAllProducts = async () => {
     const data = await getAllProducts();
+    console.log(data);
     if (data?.error) {
       setAlert(data?.error);
       clearAlert();
@@ -38,7 +39,7 @@ const Home = () => {
     <Base title='GrayCoder' description='T-Shirts for Coders'>
       {errorMessage()}
       <div className='row'>
-        {products ? (
+        {products.length > 0 ? (
           products.map((product, index) => (
             <div
               key={index}

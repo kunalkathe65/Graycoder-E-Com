@@ -98,7 +98,8 @@ const Card = ({
           </p>
           <p className='text-muted'>
             {' '}
-            <i className='fa fa-star'></i> {product.category.name}&nbsp;
+            <i className='fa fa-star'></i> {product.category.name}
+            &nbsp;
             {showRemoveBtn && (
               <span style={{ float: 'right' }}>
                 Qty : {qty}

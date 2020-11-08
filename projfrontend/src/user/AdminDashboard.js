@@ -51,7 +51,7 @@ const AdminDashboard = () => {
           </li>
           <li className='list-group-item item'>
             <Link
-              to='/admin/create/category'
+              to='/admin/categories'
               className='nav-link'
               style={{ color: '#000' }}
             >

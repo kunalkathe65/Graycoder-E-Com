@@ -14,6 +14,7 @@ import AddCategory from './admin/AddCategory';
 import AddProduct from './admin/AddProduct';
 import UpdateProduct from './admin/UpdateProduct';
 import ManageProducts from './admin/ManageProducts';
+import ManageCategories from './admin/ManageCategories';
 import ForgotPassword from './user/ForgotPassword';
 
 const App = () => {
@@ -39,6 +40,11 @@ const App = () => {
           path='/admin/product/update/:productId'
           exact
           component={UpdateProduct}
+        />
+        <AdminRoute
+          path='/admin/categories'
+          exact
+          component={ManageCategories}
         />
         {/* <AdminRoute path='/admin/orders' exact component={ManageOrders} /> */}
         <Route path='/*' render={() => <h1>404</h1>} />
