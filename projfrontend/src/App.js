@@ -16,6 +16,7 @@ import UpdateProduct from './admin/UpdateProduct';
 import ManageProducts from './admin/ManageProducts';
 import ManageCategories from './admin/ManageCategories';
 import ForgotPassword from './user/ForgotPassword';
+import ChangePassword from './user/ChangePassword';
 
 const App = () => {
   return (
@@ -25,6 +26,12 @@ const App = () => {
         <Route path='/sign-up' exact component={Signup} />
         <Route path='/sign-in' exact component={Signin} />
         <Route path='/forgot-password' exact component={ForgotPassword} />
+        <Route path='/reset-password/:token' exact component={ChangePassword} />
+        <PrivateRoute
+          path='/profile/change-password'
+          exact
+          component={ChangePassword}
+        />
         <PrivateRoute path='/user/dashboard' exact component={UserDashboard} />
         <PrivateRoute path='/user/profile' exact component={Profile} />
         <PrivateRoute path='/user/cart' exact component={Cart} />

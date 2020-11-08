@@ -144,6 +144,7 @@ body {
 @media only screen and (max-width: 600px) {
   #signin-form,
   #signup-form,
+  #chngPwd-form,
   #products-list,
   #add-product-form,
   #forgotPassword-form,

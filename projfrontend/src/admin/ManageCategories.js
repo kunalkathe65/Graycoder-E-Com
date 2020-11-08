@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 import Base from '../core/Base';
 import Alert from '../core/Alert';
@@ -19,6 +18,12 @@ const ManageCategories = (props) => {
   const [category, setCategory] = useState('');
 
   //Handlers
+
+  const onChangeHandler = (e) => {
+    //TODO:come here to handle category edit & update
+    setCategory(e.target.value);
+  };
+
   const deleteACategory = async (categoryId) => {
     const data = await deleteCategory(categoryId, user._id, token);
     if (data?.error) {
@@ -116,7 +121,7 @@ const ManageCategories = (props) => {
                           className='form-control'
                           type='text'
                           value={category.name}
-                          onChange={(e) => setCategory(e.target.value)}
+                          onChange={onChangeHandler}
                         />
                       </div>
                       <div className='modal-footer'>
@@ -132,6 +137,13 @@ const ManageCategories = (props) => {
           ) : (
             <p style={{ textAlign: 'center' }}>No categories available!</p>
           )}
+          <button
+            type='button'
+            className='btn btn-block btn-lg blue-btn'
+            onClick={() => props.history.push('/admin/create/category')}
+          >
+            Add category
+          </button>
           <button
             type='button'
             className='btn btn-block btn-lg gray-btn'

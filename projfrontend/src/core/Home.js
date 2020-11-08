@@ -18,7 +18,6 @@ const Home = () => {
   //other methods
   const preFetchAllProducts = async () => {
     const data = await getAllProducts();
-    console.log(data);
     if (data?.error) {
       setAlert(data?.error);
       clearAlert();
