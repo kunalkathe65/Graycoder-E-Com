@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import Base from '../core/Base';
 import Alert from '../core/Alert';
+import { resetPassword, changePassword } from '../auth/helper';
+import { isAuthenticated } from '../auth/helper';
 
 const ChangePassword = ({ match }) => {
   // State
@@ -9,8 +11,11 @@ const ChangePassword = ({ match }) => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [alert, setAlert] = useState('');
+  const [errors, setErrors] = useState([]);
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const { user, token } = isAuthenticated();
 
   //Handlers
   const onSubmit = async (e) => {
@@ -29,15 +34,58 @@ const ChangePassword = ({ match }) => {
       clear();
     } else if (newPassword !== confirmNewPassword) {
       setAlert("New passwords don't match!");
-      clear();
-    } else {
-      setLoading(true);
-      //TODO:Call to a helper to reset/change password
-      setLoading(false);
       setOldPassword('');
       setNewPassword('');
       setConfirmNewPassword('');
-      setSuccess('Success!');
+      clear();
+    } else {
+      setLoading(true);
+      if (match.params.token) {
+        const token = match.params.token;
+        const data = await resetPassword({ newPassword, token });
+        setLoading(false);
+
+        if (data.errors) {
+          setErrors(data.errors);
+          clearErrors();
+        } else if (data.error) {
+          setAlert(data.error);
+          setNewPassword('');
+          setConfirmNewPassword('');
+          clear();
+        } else {
+          setNewPassword('');
+          setConfirmNewPassword('');
+          setSuccess(data.success);
+          clear();
+        }
+      } else {
+        const data = await changePassword(user._id, token, {
+          oldPassword,
+          newPassword,
+        });
+        setLoading(false);
+
+        if (data.errors) {
+          setErrors(data.errors);
+          clearErrors();
+        } else if (data.error) {
+          setAlert(data.error);
+          setOldPassword('');
+          setNewPassword('');
+          setConfirmNewPassword('');
+          clear();
+        } else {
+          setOldPassword('');
+          setNewPassword('');
+          setConfirmNewPassword('');
+          setSuccess(data.success);
+          clear();
+        }
+      }
+      setOldPassword('');
+      setNewPassword('');
+      setConfirmNewPassword('');
       clear();
     }
   };
@@ -45,8 +93,20 @@ const ChangePassword = ({ match }) => {
   //Other Methods
   const errorMessage = () => alert && <Alert msg={alert} type='error' />;
 
+  const validationErrorMessages = () =>
+    errors &&
+    errors.map((error, index) => (
+      <Alert key={index} msg={error.msg} type='error' />
+    ));
+
   const successMessage = () =>
     success && <Alert msg={success} type='success' />;
+
+  const clearErrors = () => {
+    setTimeout(() => {
+      setErrors([]);
+    }, 3000);
+  };
 
   const clear = () => {
     setTimeout(() => {
@@ -60,6 +120,7 @@ const ChangePassword = ({ match }) => {
       <div className='row' id='chngPwd-form'>
         <div className='col-xs-12 col-sm-12 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4'>
           {errorMessage()}
+          {validationErrorMessages()}
           {successMessage()}
           <h2 className='text-center pt-5'>
             <i className='fa fa-lock'></i>{' '}

@@ -2,8 +2,21 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 
-const { signout, signup, signin } = require('../controllers/auth');
+const {
+  isSignedIn,
+  isAuthenticated,
+  signout,
+  signup,
+  signin,
+  resetPassword,
+  changePassword,
+} = require('../controllers/auth');
+const { getUserById } = require('../controllers/user');
 
+//Params
+router.param('userId', getUserById);
+
+//Routes
 //@route /signup
 //@method POST
 //@desc signup user
@@ -41,5 +54,37 @@ router.post(
 //@desc signout user
 //@access PUBLIC
 router.get('/signout', signout);
+
+//@route /resetPassword
+//@method POST
+//@desc reset user's password
+//@access PUBLIC
+router.post(
+  '/resetPassword',
+  [
+    check(
+      'newPassword',
+      'Password must be atleast six characters long!'
+    ).isLength({ min: 6 }),
+  ],
+  resetPassword
+);
+
+//@route /changePassword
+//@method POST
+//@desc change user's password
+//@access PRIVATE
+router.post(
+  '/:userId/changePassword',
+  [
+    check(
+      'newPassword',
+      'Password must be atleast six characters long!'
+    ).isLength({ min: 6 }),
+  ],
+  isSignedIn,
+  isAuthenticated,
+  changePassword
+);
 
 module.exports = router;
