@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import StripeCheckout from "react-stripe-checkout";
 
-import { addProductsInCart, calculateFinalAmt } from './helper/cartHelper';
+import { addProductsInCart, calculateFinalAmt } from "./helper/cartHelper";
 
 const Checkout = () => {
   //state
@@ -15,7 +16,7 @@ const Checkout = () => {
 
   return (
     <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'>
-      <h2 style={{ textAlign: 'center' }}>Order summary &amp; Checkout</h2>
+      <h2 style={{ textAlign: "center" }}>Order summary &amp; Checkout</h2>
       <hr />
       {products.length === 0 && (
         <button
@@ -29,7 +30,7 @@ const Checkout = () => {
         <div className='table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl'>
           <table
             className='ml-4 table table-borderless table-striped'
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
           >
             <thead>
               <tr>
@@ -71,12 +72,14 @@ const Checkout = () => {
         </button>
       )}
       {products.length > 0 && (
-        <button
-          className='btn btn-lg btn-block blue-btn mt-4'
-          onClick={() => console.log('PAID!')}
-        >
-          Continue to Pay
-        </button>
+        <StripeCheckout>
+          <button
+            className='btn btn-lg btn-block blue-btn mt-4'
+            onClick={() => console.log("PAID!")}
+          >
+            Continue to Pay
+          </button>
+        </StripeCheckout>
       )}
     </div>
   );
