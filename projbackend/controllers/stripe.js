@@ -1,8 +1,8 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const uuid = require("uuid/v4");
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const uuid = require('uuid/v4');
 
 exports.makePayment = (req, res) => {
-  const { token } = req.body;
+  const { token, totalAmt } = req.body;
   const idempotencyKey = uuid();
 
   //CREATE A CUSTOMER
@@ -16,9 +16,9 @@ exports.makePayment = (req, res) => {
       stripe.charges
         .create(
           {
-            amount: token.amount,
-            currency: "usd",
-            customer_id: customer.id,
+            amount: totalAmt * 100,
+            currency: 'usd',
+            customer: customer.id,
             receipt_email: token.email,
           },
           { idempotencyKey }
@@ -29,10 +29,10 @@ exports.makePayment = (req, res) => {
         .catch((error) => {
           return res
             .status(500)
-            .json({ error: "Failed to charge the customer!" });
+            .json({ error: 'Failed to charge the customer!' });
         });
     })
     .catch((error) => {
-      return res.status(500).json({ error: "Failed to create a customer!" });
+      return res.status(500).json({ error: 'Failed to create a customer!' });
     });
 };

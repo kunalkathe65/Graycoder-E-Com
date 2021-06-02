@@ -25,7 +25,6 @@ const userSchema = new Schema(
     },
     encry_password: {
       type: String,
-      required: true,
     },
     salt: String,
     role: {

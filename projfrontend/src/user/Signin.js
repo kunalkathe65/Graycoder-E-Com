@@ -7,6 +7,17 @@ import { signin, isAuthenticated, authenticate } from '../auth/helper';
 
 const Signin = (props) => {
   useEffect(() => {
+    const googleSignInUrl =
+      process.env.REACT_APP_GOOGLE_SIGN_IN_URL +
+      '&state=' +
+      process.env.REACT_APP_OAUTH_STATE +
+      '&nonce=' +
+      process.env.REACT_APP_OAUTH_NONCE;
+    setURL(googleSignInUrl.toString());
+    if (props.location.error) {
+      setAlert(props.location.error);
+      clearAlert();
+    }
     isAuthenticated() && props.history.push('/');
   }, [props.history]);
 
@@ -15,6 +26,7 @@ const Signin = (props) => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
   const [alert, setAlert] = useState('');
+  const [URL, setURL] = useState('');
   const [loading, setLoading] = useState(false);
   const [didRedirect, setDidRedirect] = useState(false);
 
@@ -135,7 +147,33 @@ const Signin = (props) => {
             <br />
             Forgot Password ? <Link to='/forgot-password'>Click here</Link>
           </p>
-
+          <hr />
+          <p style={{ textAlign: 'center' }}>OR</p>
+          <a style={{ textDecoration: 'none' }} href={URL}>
+            <button
+              type='submit'
+              className='btn btn-block btn-lg gray-btn mb-1'
+            >
+              <span>
+                <i className='fa fa-google'></i>
+              </span>
+              &nbsp;&nbsp; Sign in with Google
+            </button>
+          </a>
+          <a
+            style={{ textDecoration: 'none' }}
+            href='http://localhost:8000/api/facebook'
+          >
+            <button
+              type='submit'
+              className='btn btn-block btn-lg gray-btn mb-1'
+            >
+              <span>
+                <i className='fa fa-facebook'></i>
+              </span>
+              &nbsp;&nbsp; Sign in with Facebook
+            </button>
+          </a>
           {performRedirect()}
         </div>
       </div>

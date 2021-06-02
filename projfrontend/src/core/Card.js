@@ -116,7 +116,7 @@ const Card = ({
             className='badge bg'
             style={{ color: '#fff', width: '100%', backgroundColor: '#0A3D62' }}
           >
-            <i className='fa fa-rupee fa-lg'></i>{' '}
+            <i className='fa fa-dollar fa-lg'></i>{' '}
             {showRemoveBtn ? product.price * qty : product.price}
           </span>
         </li>

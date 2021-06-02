@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './core/Home';
 import Cart from './core/Cart';
+import Redirecting from './core/Redirecting';
 import Signup from './user/Signup';
 import Signin from './user/Signin';
 import PrivateRoute from './auth/helper/PrivateRoute';
@@ -25,6 +26,7 @@ const App = () => {
         <Route path='/' exact component={Home} />
         <Route path='/sign-up' exact component={Signup} />
         <Route path='/sign-in' exact component={Signin} />
+        <Route path='/redirect/oauth/*' exact component={Redirecting} />
         <Route path='/forgot-password' exact component={ForgotPassword} />
         <Route path='/reset-password/:token' exact component={ChangePassword} />
         <PrivateRoute

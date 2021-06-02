@@ -2,7 +2,6 @@ const User = require('../models/User');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
-const { findOne } = require('../models/User');
 
 //SIGNUP CONTROLLER(POST)
 exports.signup = async (req, res) => {
@@ -76,6 +75,66 @@ exports.signin = async (req, res) => {
       //send response
       const { _id, name, email, role } = user;
       return res.status(200).json({ token, user: { _id, name, email, role } });
+    }
+  } catch (err) {
+    return res.status(500).json({
+      error: 'OOPS!! Something went wrong',
+    });
+  }
+};
+
+//GOOGLE CONTROLLER(GET)
+exports.google = async (req, res) => {
+  try {
+    const id_token = req.params.idToken;
+    // Since the token has been received directly from Google, there is no need to validate it
+    // Decoding the token to extract user information
+    const decoded = jwt.decode(id_token);
+    const { given_name, family_name, email } = decoded;
+    const isFound = await User.findOne({ email });
+    if (isFound) {
+      // Sign JWT and login user
+      //create token
+      const token = jwt.sign({ _id: isFound._id }, process.env.SECRET);
+      //set cookie
+      res.cookie('token', token, { expire: new Date() + 9999 });
+      //send response
+      const { _id, name, email, role } = isFound;
+      return res.status(200).json({
+        token,
+        user: { _id, name, email, role },
+      });
+    } else {
+      // Register user, sign JWT and login user
+      const user = new User({
+        name: given_name,
+        lastname: family_name,
+        email,
+      });
+      await user.save((err, user) => {
+        if (err) {
+          return res
+            .status(400)
+            .json({ error: 'Something went wrong! Please try again' });
+        } else {
+          // Sign JWT and login user
+          //create token
+          const token = jwt.sign({ _id: user._id }, process.env.SECRET);
+          //set cookie
+          res.cookie('token', token, { expire: new Date() + 9999 });
+          const { _id, name, email, role } = user;
+          //send response
+          return res.status(200).json({
+            token,
+            user: {
+              _id,
+              name,
+              email,
+              role,
+            },
+          });
+        }
+      });
     }
   } catch (err) {
     return res.status(500).json({

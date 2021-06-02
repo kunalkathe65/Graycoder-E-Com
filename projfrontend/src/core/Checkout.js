@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import StripeCheckout from "react-stripe-checkout";
+import React, { useState } from 'react';
+import StripeCheckout from 'react-stripe-checkout';
 
-import { addProductsInCart, calculateFinalAmt } from "./helper/cartHelper";
+import { addProductsInCart, calculateFinalAmt } from './helper/cartHelper';
+import API from '../backend';
 
 const Checkout = () => {
   //state
@@ -14,9 +15,30 @@ const Checkout = () => {
     setTotalAmt(calculateFinalAmt());
   };
 
+  const makePayment = (token) => {
+    const body = {
+      token,
+      totalAmt,
+    };
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    return fetch(`${API}/stripe/payment`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        console.log(response);
+        return response;
+        //create order
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'>
-      <h2 style={{ textAlign: "center" }}>Order summary &amp; Checkout</h2>
+      <h2 style={{ textAlign: 'center' }}>Order summary &amp; Checkout</h2>
       <hr />
       {products.length === 0 && (
         <button
@@ -30,7 +52,7 @@ const Checkout = () => {
         <div className='table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl'>
           <table
             className='ml-4 table table-borderless table-striped'
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           >
             <thead>
               <tr>
@@ -45,11 +67,11 @@ const Checkout = () => {
                 <tr key={index}>
                   <td className='text-muted'>{product.name}</td>
                   <td className='text-muted'>
-                    Rs.{product.price}.00 x {product.qty} nos.
+                    ${product.price}.00 x {product.qty} nos.
                   </td>
                   <td className='text-muted'>=</td>
                   <td className='text-muted'>
-                    Rs.{product.price * product.qty}.00
+                    ${product.price * product.qty}.00
                   </td>
                 </tr>
               ))}
@@ -57,7 +79,7 @@ const Checkout = () => {
                 <td>Total Amount :</td>
                 <td></td>
                 <td>=</td>
-                <td>Rs. {totalAmt}.00</td>
+                <td>$ {totalAmt}.00</td>
               </tr>
             </tbody>
           </table>
@@ -72,11 +94,18 @@ const Checkout = () => {
         </button>
       )}
       {products.length > 0 && (
-        <StripeCheckout>
-          <button
-            className='btn btn-lg btn-block blue-btn mt-4'
-            onClick={() => console.log("PAID!")}
-          >
+        <StripeCheckout
+          name='Payment for Graycoder'
+          description='Pay for the t-shirt(s)'
+          panelLabel='Confirm Payment'
+          currency='USD'
+          token={makePayment}
+          amount={totalAmt * 100}
+          stripeKey={process.env.REACT_APP_STRIPE_PUB_KEY}
+          shippingAddress
+          billingAddress
+        >
+          <button className='btn btn-lg btn-block blue-btn mt-4'>
             Continue to Pay
           </button>
         </StripeCheckout>

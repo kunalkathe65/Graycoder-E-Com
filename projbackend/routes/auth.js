@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 const { check } = require('express-validator');
 
@@ -10,6 +11,7 @@ const {
   signin,
   resetPassword,
   changePassword,
+  google,
 } = require('../controllers/auth');
 const { getUserById } = require('../controllers/user');
 
@@ -28,10 +30,9 @@ router.post(
       min: 3,
     }),
     check('email', 'Email is invalid!').isEmail(),
-    check(
-      'password',
-      'Password must be atleast six characters long!'
-    ).isLength({ min: 6 }),
+    check('password', 'Password must be atleast six characters long!').isLength(
+      { min: 6 }
+    ),
   ],
   signup
 );
@@ -86,5 +87,29 @@ router.post(
   isAuthenticated,
   changePassword
 );
+
+// Google OAuth
+router.get('/google/:idToken', google);
+
+// Facebook OAuth
+router.get(
+  '/facebook',
+  passport.authenticate('facebook', {
+    scope: ['email'],
+  })
+);
+router.get(
+  '/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: 'http://localhost:8000/api/facebook/success',
+    failureRedirect: 'http://localhost:8000/api/facebook/failure',
+  })
+);
+router.get('/facebook/success', (req, res) => {
+  res.redirect('http://localhost:3000/user/dashboard');
+});
+router.get('/facebook/failure', (req, res) => {
+  res.redirect('http://localhost:3000/sign-in');
+});
 
 module.exports = router;
